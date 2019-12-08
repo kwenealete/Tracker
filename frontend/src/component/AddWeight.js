@@ -16,6 +16,17 @@ mutation createMeasurement($UserId: ID!, $createdAt: String!, $weight: Float!){
       }
 }`;
 
+const updateCache = (caches, {data: {createMeasurement}}) => {
+  const { measurements } = caches.readQuery({query: GET_WEIGHT});
+  
+  caches.writeQuery({
+    query: GET_WEIGHT,
+    data: {
+      measurements: measurements.concat(createMeasurement)
+    }
+  });
+  
+};
 
 class AddWeight extends Component {
   state = {
@@ -23,6 +34,7 @@ class AddWeight extends Component {
     UserId: 1,
     createdAt: new Date().toLocaleDateString()
   }
+  
 
   render() {
     const { weight, UserId, createdAt } = this.state;
@@ -58,9 +70,8 @@ class AddWeight extends Component {
           />
         </div>
         <Mutation 
-            mutation={CREATE_MEASUREMENT}
+            mutation={CREATE_MEASUREMENT}update={updateCache}
             variables={{ weight: parseFloat(weight), UserId: UserId, createdAt: createdAt }}
-            refetchQueries = {{ query: GET_WEIGHT }}
             onCompleted={() => this.props.history.push('/')}
             
              >
