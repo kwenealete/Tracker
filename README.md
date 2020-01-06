@@ -1,6 +1,6 @@
 # Build Project
 
-To build this project, mysql must be install first.
+To build this project, mysql must be installed first.
 
 If that has not been done yet, find the installation links here:
 Windows: https://dev.mysql.com/downloads/windows/installer/
