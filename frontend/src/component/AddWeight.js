@@ -70,7 +70,7 @@ class AddWeight extends Component {
           />
         </div>
         <Mutation 
-            mutation={CREATE_MEASUREMENT}update={updateCache}
+            mutation = { CREATE_MEASUREMENT} update={updateCache}
             variables={{ weight: parseFloat(weight), UserId: UserId, createdAt: createdAt }}
             onCompleted={() => this.props.history.push('/')}
             
